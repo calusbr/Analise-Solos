@@ -1,0 +1,190 @@
+:root {
+    --primary-green: #2e7d32; --mid-green: #43a047; --light-green: #e8f5e9;
+    --legend-bg: #c8e6c9; --accent-lime: #c6ff00; --text-dark: #212121;
+    --text-light: #757575; --white: #ffffff; --border-color: #e0e0e0;
+    --shadow-card: 0 4px 12px rgba(0,0,0,0.08);
+}
+body { font-family: 'Inter', sans-serif; background-color: #f1f3f4; color: var(--text-dark); margin: 0; padding: 0; line-height: 1.5; }
+
+/* ... ESTILOS DO DASHBOARD (MANTIDOS) ... */
+.main-header { background-color: #1b5e20; background-image: linear-gradient(135deg, #0d3311 25%, transparent 25%), linear-gradient(225deg, #0d3311 25%, transparent 25%), linear-gradient(45deg, #0d3311 25%, transparent 25%), linear-gradient(315deg, #0d3311 25%, #1b5e20 25%); background-position: 10px 0, 10px 0, 0 0, 0 0; background-size: 20px 20px; background-repeat: repeat; color: var(--white); padding: 1.5rem 0; box-shadow: 0 4px 15px rgba(0,0,0,0.3); position: relative; overflow: hidden; }
+.header-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to right, rgba(27, 94, 32, 0.95), rgba(46, 125, 50, 0.85)); z-index: 1; }
+.header-content { max-width: 1400px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 2; }
+.header-actions { display: flex; align-items: center; gap: 20px; }
+.btn-pdf { background: var(--white); color: var(--primary-green); border: none; padding: 10px 20px; border-radius: 30px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: transform 0.2s; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
+.btn-pdf:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0,0,0,0.3); }
+.logo-area { display: flex; align-items: center; gap: 20px; }
+.logo-circle { width: 60px; height: 60px; background: linear-gradient(145deg, #c6ff00, #9eea00); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(198, 255, 0, 0.4); border: 3px solid rgba(255,255,255,0.2); }
+.brand-text h1 { margin: 0; font-family: 'Poppins', sans-serif; font-size: 2rem; font-weight: 800; line-height: 1; letter-spacing: -1px; }
+.brand-text .highlight { color: var(--accent-lime); }
+.brand-text p { margin: 0; font-size: 0.75rem; opacity: 0.9; letter-spacing: 2.5px; font-weight: 500; text-transform: uppercase; margin-top: 5px; }
+.date-box { background: rgba(255, 255, 255, 0.1); padding: 8px 15px; border-radius: 8px; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.15); display: flex; flex-direction: column; align-items: flex-end; }
+.date-label { color: var(--accent-lime); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; margin-bottom: 2px; }
+.date-value { font-size: 1.2rem; font-weight: 700; color: white; }
+.dashboard-container { max-width: 1400px; margin: 30px auto 40px; padding: 0 20px; display: flex; flex-direction: column; gap: 30px; }
+.intro-card { background: linear-gradient(to right, #ffffff, #f1f8e9); border-left: 6px solid var(--mid-green); }
+.intro-content h2 { color: var(--primary-green); margin-top: 0; font-family: 'Poppins', sans-serif; font-size: 1.4rem; }
+.intro-content p { margin-bottom: 10px; color: #455a64; text-align: justify; }
+.action-card { background: #e8f5e9; border: 1px dashed var(--primary-green); }
+.action-buttons { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 10px; }
+.btn-action { padding: 12px 20px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; font-size: 0.9rem; }
+.btn-upload { background: var(--white); color: var(--primary-green); border: 2px solid var(--primary-green); }
+.btn-upload:hover { background: var(--primary-green); color: white; }
+.btn-download { background: var(--primary-green); color: white; }
+.btn-download:hover { background: #1b5e20; }
+.btn-new { background: #ff9800; color: white; }
+.btn-new:hover { background: #f57c00; }
+.action-help { font-size: 0.8rem; color: #666; margin-top: 5px; font-style: italic; }
+.card { background: var(--white); border-radius: 12px; box-shadow: var(--shadow-card); padding: 20px; border: 1px solid var(--border-color); }
+.h-100 { height: 100%; box-sizing: border-box; display: flex; flex-direction: column; }
+.card-header { border-bottom: 2px solid var(--light-green); padding-bottom: 10px; margin-bottom: 15px; }
+.card-header h2, .card-header h3 { margin: 0; color: var(--primary-green); font-family: 'Poppins', sans-serif; font-size: 1.1rem; }
+.card-header .tip { font-size: 0.75rem; color: #888; margin-left: 10px; font-weight: normal; }
+input[type="text"], input[type="number"] { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 6px; font-family: 'Inter', sans-serif; box-sizing: border-box; font-size: 0.9rem; }
+input[type="number"] { text-align: center; font-weight: 600; color: var(--primary-green); }
+.single-line-form { display: grid; grid-template-columns: 2.5fr 2.5fr 2fr 2fr 0.8fr 0.8fr 0.8fr; gap: 15px; align-items: end; }
+.single-line-form label { font-size: 0.75rem; font-weight: 700; color: var(--text-light); margin-bottom: 4px; display: block; white-space: nowrap; }
+.table-responsive { overflow-x: auto; }
+.data-table, .simple-table, .correction-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; flex: 1; }
+th { background-color: #f9fbe7; color: var(--primary-green); padding: 12px 10px; font-weight: 600; text-transform: uppercase; font-size: 0.8rem; border-bottom: 2px solid #c8e6c9; vertical-align: bottom; }
+th small { display: block; font-size: 0.65rem; opacity: 0.8; margin-top: 2px; text-transform: none; }
+td { padding: 12px 8px; text-align: center; border-bottom: 1px solid #eee; }
+.chemistry-legend-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-top: 20px; padding-top: 15px; border-top: 1px dashed #ddd; }
+.legend-box { padding: 8px; border-radius: 6px; border: 1px solid #a5d6a7; color: #1b5e20; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+.lg-term { font-weight: 800; font-size: 0.9rem; margin-bottom: 2px; }
+.lg-desc { font-size: 0.7rem; opacity: 0.9; line-height: 1.1; }
+.lg-green { background-color: var(--legend-bg); }
+.status-tag { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; width: 80px; }
+.st-mbaixo { background: #ffebee; color: #b71c1c; } .st-baixo { background: #ffcdd2; color: #c62828; } .st-medio { background: #fff9c4; color: #fbc02d; } .st-bom { background: #c8e6c9; color: #2e7d32; } .st-alto { background: #a5d6a7; color: #1b5e20; } .st-malto { background: #81c784; color: #003300; }
+.grid-three-cols { display: grid; grid-template-columns: 1fr 1fr 1.2fr; gap: 30px; }
+.grid-row-standard { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 30px; }
+.expanded-inputs input { width: 80px; }
+.absolute-table th { background-color: #eceff1; color: #455a64; } .absolute-table td { text-align: left; padding-left: 15px; } .absolute-table td:last-child { text-align: center; font-weight: bold; }
+.correction-section { border-left: 5px solid var(--primary-green); }
+.correction-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+.correction-table th { background-color: var(--primary-green); color: white; }
+.correction-table td { text-align: left; }
+.correction-table td:nth-child(3), .correction-table td:nth-child(4), .correction-table td:nth-child(5), .correction-table td:nth-child(6) { text-align: center; }
+.correction-controls { display: flex; gap: 15px; background: var(--light-green); padding: 10px; border-radius: 8px; }
+.main-footer { background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%); color: white; text-align: center; padding: 2rem; margin-top: 20px; font-size: 0.9rem; }
+@media (max-width: 1100px) { .single-line-form { grid-template-columns: 1fr 1fr; } .grid-three-cols, .grid-row-standard { grid-template-columns: 1fr; } .header-content { flex-direction: column; gap: 15px; text-align: center; } .logo-area { flex-direction: column; } .header-actions { flex-direction: column; width: 100%; } .date-box { align-items: center; width: 100%; } }
+
+/* =========================================
+   ESTILOS EXCLUSIVOS DO PDF
+   ========================================= */
+.pdf-container {
+    display: none;
+    width: 100%; 
+    background: white;
+    padding: 0; 
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+    color: #000;
+}
+
+.pdf-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid var(--primary-green);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    /* CORREÇÃO AQUI: Padding Right Aumentado para evitar corte da data */
+    padding-right: 30px; 
+    width: 100%;
+}
+.pdf-logo-area { display: flex; align-items: center; gap: 10px; }
+.pdf-logo-circle {
+    width: 40px; height: 40px; background: #c6ff00; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
+    border: 2px solid #2e7d32;
+}
+.pdf-title { font-family: 'Poppins', sans-serif; font-size: 1.4rem; font-weight: 800; margin: 0; line-height: 1; }
+.pdf-subtitle { font-size: 0.6rem; letter-spacing: 1px; margin: 0; text-transform: uppercase; color: #555; }
+
+/* CORREÇÃO AQUI: Margem de segurança para a data */
+.pdf-meta { 
+    text-align: right; 
+    white-space: nowrap; 
+    min-width: 120px; 
+    margin-right: 15px; /* Empurra a data para a esquerda */
+}
+.pdf-date-label { font-size: 0.6rem; font-weight: bold; color: var(--primary-green); }
+.pdf-date-val { font-size: 0.85rem; font-weight: bold; }
+
+.pdf-section { margin-bottom: 15px; page-break-inside: avoid; }
+.pdf-sec-title {
+    background: #f0f0f0;
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-left: 4px solid var(--primary-green);
+    margin: 0 0 8px 0;
+    text-transform: uppercase;
+    color: #333;
+}
+
+.pdf-subheader {
+    background-color: #e0f2f1;
+    color: #00695c;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.65rem;
+    padding: 3px 8px;
+}
+
+.pdf-client-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px 15px;
+    font-size: 0.65rem;
+}
+
+.pdf-heatmap-table { width: 100%; border-collapse: collapse; font-size: 0.7rem; }
+.pdf-heatmap-table th { text-align: left; padding: 3px; border-bottom: 1px solid #999; font-size: 0.65rem; color: #555; }
+.pdf-heatmap-table td { padding: 3px; border-bottom: 1px solid #eee; vertical-align: middle; }
+
+/* Cores Vivas (Mantidas da última atualização que você aprovou) */
+.heatmap-bar-container {
+    width: 100%; height: 8px;
+    background: linear-gradient(to right, #ff3d00 30%, #ffea00 30% 70%, #00e676 70%);
+    border-radius: 4px; position: relative; border: 1px solid #ccc;
+}
+.heatmap-marker {
+    position: absolute; top: -3px; width: 0; height: 0;
+    border-left: 3px solid transparent; border-right: 3px solid transparent;
+    border-top: 4px solid #000; transform: translateX(-50%);
+}
+
+.pdf-row { display: flex; gap: 15px; }
+.pdf-col { flex: 1; }
+.pdf-data-table { width: 100%; border-collapse: collapse; font-size: 0.65rem; }
+.pdf-data-table th { background: #f5f5f5; text-align: left; padding: 3px; border-bottom: 1px solid #aaa; color: #333; }
+.pdf-data-table td { padding: 3px; border-bottom: 1px solid #ddd; }
+.pdf-data-table.striped tr:nth-child(even) { background-color: #fafafa; }
+
+.pdf-fertigram-container {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    height: 100px;
+    border-bottom: 1px solid #ccc; padding: 0 5px; margin-top: 10px;
+}
+.fert-col {
+    display: flex; flex-direction: column; align-items: center; flex: 1; position: relative; margin: 0 1px;
+}
+.fert-bar-wrapper { width: 100%; height: 85px; display: flex; align-items: flex-end; justify-content: center; }
+.fert-bar { width: 100%; border-radius: 2px 2px 0 0; position: relative; min-height: 1px; }
+.fert-val { position: absolute; top: -10px; width: 100%; text-align: center; font-size: 0.5rem; font-weight: bold; }
+.fert-label { margin-top: 2px; font-size: 0.55rem; font-weight: bold; color: #555; white-space: nowrap; }
+.line-100 { position: absolute; bottom: 56px; width: 100%; border-top: 1px dashed #2e7d32; z-index: 1; left: 0; }
+
+.pdf-footer {
+    margin-top: 50px; 
+    border-top: 1px solid #ccc; 
+    padding-top: 15px;
+    text-align: center; 
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #444;
+    line-height: 1.8;
+    border-bottom: 8px solid var(--primary-green);
+}

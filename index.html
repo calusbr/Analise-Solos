@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroSmart - Relatório Técnico</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@500;700;800&display=swap" rel="stylesheet">
+    
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="main-header" id="header-area">
+    <div class="header-overlay"></div>
+    <div class="header-content">
+        <div class="logo-area">
+            <div class="logo-circle"><span style="font-size: 1.8rem;">🌱</span></div>
+            <div class="brand-text">
+                <h1>AGRO <span class="highlight">SMART</span></h1>
+                <p>RELATÓRIO TÉCNICO DE ANÁLISE DE SOLOS</p>
+            </div>
+        </div>
+        <div class="header-actions">
+            <button class="btn-pdf" onclick="generatePDF()">📄 Gerar Relatório PDF</button>
+            <div class="meta-info">
+                <div class="date-box">
+                    <span class="date-label">Data da Análise</span>
+                    <span class="date-value" id="display_date">18/07/2024</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="dashboard-container" id="report-content">
+
+    <section class="card action-card data-controls-hide-on-pdf">
+        <div class="card-header"><h3>📂 Gestão de Dados</h3></div>
+        <div class="action-buttons">
+            <div class="upload-area">
+                <label for="excel_upload" class="btn-action btn-upload">📤 Importar Excel</label>
+                <input type="file" id="excel_upload" accept=".xls, .xlsx" onchange="handleFileUpload(this)" style="display:none;">
+            </div>
+            <button class="btn-action btn-download" onclick="downloadTemplate()">📥 Baixar Modelo (.xls)</button>
+            <button class="btn-action btn-new" onclick="resetForm()">✨ Novo Relatório</button>
+        </div>
+    </section>
+
+    <section class="card input-section">
+        <div class="card-header"><h2>📝 Identificação da Amostra</h2></div>
+        <div class="single-line-form">
+            <div class="form-group grow-2"><label>Cliente</label><input type="text" id="client_name" value="Rafael Santos"></div>
+            <div class="form-group grow-2"><label>Propriedade</label><input type="text" id="property_name" value="Fazenda IFMS"></div>
+            <div class="form-group grow-1"><label>Município</label><input type="text" id="city_name" value="Dourados-MS"></div>
+            <div class="form-group grow-2"><label>Laboratório</label><input type="text" id="lab_name" value="AgroSmart Solos"></div>
+            <div class="form-group grow-xs"><label>Amostra</label><input type="text" id="sample_id" value="1.0"></div>
+            <div class="form-group grow-xs"><label>Profundidade</label><input type="text" id="depth_val" value="0-20cm"></div>
+            <div class="form-group grow-xs"><label>Área (ha)</label><input type="number" id="area" value="10.0" class="highlight-input"></div>
+        </div>
+    </section>
+
+    <section class="card chemistry-section">
+        <div class="card-header flex-header"><h2>🧪 Resultados da Análise Química</h2><span class="tip">Edite os valores para recalcular</span></div>
+        <div class="table-responsive">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>pH<br><small>Água</small></th><th>pH<br><small>CaCl2</small></th>
+                        <th>Al<br><small>cmol/dm³</small></th><th>Ca<br><small>cmol/dm³</small></th>
+                        <th>Mg<br><small>cmol/dm³</small></th><th>H+Al<br><small>cmol/dm³</small></th>
+                        <th>K<br><small>cmol/dm³</small></th><th>P<br><small>mg/dm³</small></th>
+                        <th>CTC<br><small>cmol/dm³</small></th><th>V<br><small>%</small></th>
+                        <th>M.O.<br><small>g/dm³</small></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="number" id="ph_agua" value="5.0" step="0.1"></td>
+                        <td><input type="number" id="ph_cacl" value="4.3" step="0.1"></td>
+                        <td><input type="number" id="al" value="1.8" step="0.1"></td>
+                        <td><input type="number" id="ca" value="5.0" step="0.1"></td>
+                        <td><input type="number" id="mg" value="2.2" step="0.1"></td>
+                        <td><input type="number" id="hal" value="7.8" step="0.1"></td>
+                        <td><input type="number" id="k" value="0.05" step="0.01"></td>
+                        <td><input type="number" id="p" value="5.5" step="0.1"></td>
+                        <td id="res_ctc" style="font-weight: bold; background: #f1f8e9;">15.05</td>
+                        <td id="res_v" style="font-weight: bold; color: var(--primary-green);">48.17</td>
+                        <td><input type="number" id="mo" value="2.1" step="0.1"></td>
+                    </tr>
+                    <tr id="row_classification" class="row-status">
+                        </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="chemistry-legend-grid">
+            <div class="legend-box lg-green"><span class="lg-term">pH</span><span class="lg-desc">Potencial Hidrogênionico</span></div>
+            <div class="legend-box lg-green"><span class="lg-term">cmol/dm³</span><span class="lg-desc">Centimol de carga</span></div>
+            <div class="legend-box lg-green"><span class="lg-term">mg/dm³</span><span class="lg-desc">Miligrama/dm³</span></div>
+            <div class="legend-box lg-green"><span class="lg-term">CTC</span><span class="lg-desc">Cap. Troca Catiônica</span></div>
+            <div class="legend-box lg-green"><span class="lg-term">V%</span><span class="lg-desc">Saturação por Bases</span></div>
+            <div class="legend-box lg-green"><span class="lg-term">H+Al</span><span class="lg-desc">Acidez Potencial</span></div>
+            <div class="legend-box lg-green"><span class="lg-term">M.O.</span><span class="lg-desc">Matéria Orgânica</span></div>
+        </div>
+    </section>
+
+    <div class="grid-three-cols">
+        <section class="card h-100">
+            <div class="card-header"><h3>⚖️ Relações</h3></div>
+            <table class="simple-table"><thead><tr><th>Relação</th><th>Valor</th><th>Status</th></tr></thead><tbody id="relationsBody"></tbody></table>
+        </section>
+        <section class="card h-100">
+            <div class="card-header"><h3>💧 Saturação CTC</h3></div>
+            <table class="simple-table"><thead><tr><th>Íon</th><th>Ideal</th><th>Atual</th></tr></thead><tbody id="saturationBody"></tbody></table>
+        </section>
+        <section class="card h-100">
+            <div class="card-header"><h3>🔬 Micronutrientes</h3></div>
+            <table class="simple-table micro-table expanded-inputs">
+                <thead><tr><th>Elem.</th><th>Valor</th><th>Class.</th></tr></thead>
+                <tbody>
+                    <tr><td>S</td><td><input type="number" id="micro_s" value="0.0"></td><td id="class_s">-</td></tr>
+                    <tr><td>Cu</td><td><input type="number" id="micro_cu" value="39.1"></td><td id="class_cu">-</td></tr>
+                    <tr><td>Fe</td><td><input type="number" id="micro_fe" value="1014.2"></td><td id="class_fe">-</td></tr>
+                    <tr><td>Mn</td><td><input type="number" id="micro_mn" value="153.2"></td><td id="class_mn">-</td></tr>
+                    <tr><td>Zn</td><td><input type="number" id="micro_zn" value="3.22"></td><td id="class_zn">-</td></tr>
+                    <tr><td>B</td><td><input type="number" id="micro_b" value="0.0"></td><td id="class_b">-</td></tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <div class="grid-row-standard">
+        <section class="card h-100">
+            <div class="card-header"><h3>📋 Valores Absolutos (%)</h3></div>
+            <table class="simple-table absolute-table"><thead><tr><th>Discriminação</th><th>Abrev.</th><th>Total(%)</th></tr></thead><tbody id="absoluteBody"></tbody></table>
+        </section>
+        <section class="card chart-card h-100">
+            <div class="card-header"><h3>📊 Fertigrama</h3></div>
+            <div id="fertigramChart" class="chart-area"></div>
+        </section>
+    </div>
+
+    <section class="card correction-section">
+        <div class="card-header correction-header">
+            <div><h2>🚜 Plano de Correção e Adubação</h2></div>
+            <div class="correction-controls">
+                <div class="ctrl-group"><label>Meta V%</label><input type="number" id="target_v" value="70"></div>
+                <div class="ctrl-group"><label>PRNT Calcário (%)</label><input type="number" id="prnt" value="80"></div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="correction-table">
+                <thead><tr><th style="width: 25%">Discriminação</th><th style="width: 25%">Especificação</th><th>Índices</th><th>Prod. Puro (kg/t /ha)</th><th>Comercial (kg/t /ha)</th><th>Total (<span id="lbl_area">0</span> ha)</th></tr></thead>
+                <tbody id="correctionBody"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <div id="pdf-report" class="pdf-container">
+        <div class="pdf-header">
+            <div class="pdf-logo-area">
+                <div class="pdf-logo-circle">🌱</div>
+                <div class="pdf-brand">
+                    <h1 class="pdf-title">AGRO <span style="color:#2e7d32">SMART</span></h1>
+                    <p class="pdf-subtitle">RELATÓRIO TÉCNICO DE ANÁLISE DE SOLOS</p>
+                </div>
+            </div>
+            <div class="pdf-meta">
+                <div class="pdf-date-label">DATA DA ANÁLISE</div>
+                <div class="pdf-date-val" id="pdf_date"></div>
+            </div>
+        </div>
+
+        <div class="pdf-section">
+            <h3 class="pdf-sec-title">IDENTIFICAÇÃO DA AMOSTRA</h3>
+            <table class="pdf-info-table">
+                <tr>
+                    <td width="15%"><strong>Cliente:</strong></td><td width="35%" id="pdf_client"></td>
+                    <td width="15%"><strong>Propriedade:</strong></td><td width="35%" id="pdf_prop"></td>
+                </tr>
+                <tr>
+                    <td><strong>Município:</strong></td><td id="pdf_city"></td>
+                    <td><strong>Laboratório:</strong></td><td id="pdf_lab"></td>
+                </tr>
+                <tr>
+                    <td><strong>Amostra:</strong></td><td id="pdf_sample"></td>
+                    <td><strong>Profundidade:</strong></td><td id="pdf_depth"></td>
+                </tr>
+                <tr>
+                    <td><strong>Área:</strong></td><td colspan="3"><span id="pdf_area"></span> ha</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="pdf-section">
+            <h3 class="pdf-sec-title">MAPA NUTRICIONAL (INTERPRETAÇÃO)</h3>
+            <table class="pdf-heatmap-table">
+                <thead>
+                    <tr>
+                        <th width="25%">Parâmetro</th>
+                        <th width="15%" style="text-align:center">Valor</th>
+                        <th width="45%">Nível (Baixo / Médio / Alto)</th>
+                        <th width="15%" style="text-align:center">Classificação</th>
+                    </tr>
+                </thead>
+                <tbody id="pdf_heatmap_body">
+                    </tbody>
+            </table>
+        </div>
+
+        <div class="pdf-row">
+            <div class="pdf-col">
+                <h3 class="pdf-sec-title">RELAÇÕES CATIÔNICAS</h3>
+                <table class="pdf-data-table" id="pdf_relations_table"></table>
+            </div>
+            <div class="pdf-col">
+                <h3 class="pdf-sec-title">SATURAÇÃO (CTC)</h3>
+                <table class="pdf-data-table" id="pdf_saturation_table"></table>
+            </div>
+        </div>
+
+        <div class="pdf-section" style="margin-top: 20px;">
+            <h3 class="pdf-sec-title">FERTIGRAMA (NÍVEIS RELATIVOS %)</h3>
+            <div class="pdf-fertigram-container" id="pdf_fertigram_body"></div>
+        </div>
+
+        <div class="pdf-section">
+            <h3 class="pdf-sec-title">RECOMENDAÇÃO DE CORREÇÃO E ADUBAÇÃO</h3>
+            <table class="pdf-data-table striped" id="pdf_correction_table">
+                <thead>
+                    <tr>
+                        <th style="text-align:left">Insumo</th>
+                        <th style="text-align:left">Especificação</th>
+                        <th style="text-align:center">Dose (kg/t /ha)</th>
+                        <th style="text-align:center">Total (Área Total)</th>
+                    </tr>
+                </thead>
+                <tbody id="pdf_correction_body"></tbody>
+            </table>
+        </div>
+
+        <div class="pdf-footer">
+            Os resultados deste laudo representam a amostra entregue ao laboratório pelo interessado.<br>
+            AgroSmart System • Tecnologia em Solos • www.agrosmart.com.br
+        </div>
+    </div>
+
+</main>
+<footer class="main-footer"><p>AgroSmart System v1.0 • Desenvolvido para Alta Produtividade</p></footer>
+<script src="solos.js"></script>
+</body>
+</html>
