@@ -6,8 +6,17 @@
 }
 body { font-family: 'Inter', sans-serif; background-color: #f1f3f4; color: var(--text-dark); margin: 0; padding: 0; line-height: 1.5; }
 
-/* ... ESTILOS DO DASHBOARD (MANTIDOS) ... */
-.main-header { background-color: #1b5e20; background-image: linear-gradient(135deg, #0d3311 25%, transparent 25%), linear-gradient(225deg, #0d3311 25%, transparent 25%), linear-gradient(45deg, #0d3311 25%, transparent 25%), linear-gradient(315deg, #0d3311 25%, #1b5e20 25%); background-position: 10px 0, 10px 0, 0 0, 0 0; background-size: 20px 20px; background-repeat: repeat; color: var(--white); padding: 1.5rem 0; box-shadow: 0 4px 15px rgba(0,0,0,0.3); position: relative; overflow: hidden; }
+/* --- ESTILOS DO DASHBOARD --- */
+.main-header {
+    background-color: #1b5e20;
+    background-image: linear-gradient(135deg, #0d3311 25%, transparent 25%), 
+                      linear-gradient(225deg, #0d3311 25%, transparent 25%), 
+                      linear-gradient(45deg, #0d3311 25%, transparent 25%), 
+                      linear-gradient(315deg, #0d3311 25%, #1b5e20 25%);
+    background-position: 10px 0, 10px 0, 0 0, 0 0; background-size: 20px 20px;
+    background-repeat: repeat; color: var(--white); padding: 1.5rem 0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3); position: relative; overflow: hidden;
+}
 .header-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to right, rgba(27, 94, 32, 0.95), rgba(46, 125, 50, 0.85)); z-index: 1; }
 .header-content { max-width: 1400px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 2; }
 .header-actions { display: flex; align-items: center; gap: 20px; }
@@ -67,7 +76,66 @@ td { padding: 12px 8px; text-align: center; border-bottom: 1px solid #eee; }
 .correction-table td:nth-child(3), .correction-table td:nth-child(4), .correction-table td:nth-child(5), .correction-table td:nth-child(6) { text-align: center; }
 .correction-controls { display: flex; gap: 15px; background: var(--light-green); padding: 10px; border-radius: 8px; }
 .main-footer { background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%); color: white; text-align: center; padding: 2rem; margin-top: 20px; font-size: 0.9rem; }
-@media (max-width: 1100px) { .single-line-form { grid-template-columns: 1fr 1fr; } .grid-three-cols, .grid-row-standard { grid-template-columns: 1fr; } .header-content { flex-direction: column; gap: 15px; text-align: center; } .logo-area { flex-direction: column; } .header-actions { flex-direction: column; width: 100%; } .date-box { align-items: center; width: 100%; } }
+
+/* =========================================
+   MEDIA QUERIES (RESPONSIVIDADE)
+   ========================================= */
+
+@media (max-width: 1100px) { 
+    .single-line-form { grid-template-columns: 1fr 1fr; } 
+    .grid-three-cols, .grid-row-standard { grid-template-columns: 1fr; } 
+    .header-content { flex-direction: column; gap: 15px; text-align: center; } 
+    .logo-area { flex-direction: column; } 
+    .header-actions { flex-direction: column; width: 100%; } 
+    .date-box { align-items: center; width: 100%; } 
+}
+
+/* Telas de Celulares (Portrait) */
+@media (max-width: 768px) {
+    /* Header Stack */
+    .main-header { padding: 1rem 0; }
+    .header-content { padding: 0 15px; }
+    .brand-text h1 { font-size: 1.5rem; }
+    
+    /* Inputs: Um por linha */
+    .single-line-form { 
+        grid-template-columns: 1fr; 
+        gap: 15px;
+    }
+    
+    /* Tabelas com Scroll Horizontal */
+    .table-responsive {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch; /* Suave no iOS */
+        margin-bottom: 10px;
+    }
+    
+    /* Cartões empilhados */
+    .dashboard-container { padding: 0 10px; gap: 20px; }
+    .grid-three-cols, 
+    .grid-row-standard {
+        grid-template-columns: 1fr; 
+        gap: 20px;
+    }
+    
+    /* Botões de Ação */
+    .action-buttons { flex-direction: column; }
+    .btn-action { width: 100%; justify-content: center; }
+    
+    /* Correção Controls */
+    .correction-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .correction-controls { width: 100%; flex-direction: column; }
+    .ctrl-group { width: 100%; display: flex; justify-content: space-between; align-items: center; }
+    .ctrl-group input { width: 100px; }
+    
+    /* Legenda Química (2 Colunas) */
+    .chemistry-legend-grid { grid-template-columns: 1fr 1fr; }
+    
+    /* Footer */
+    .main-footer { padding: 1.5rem 1rem; font-size: 0.8rem; }
+}
 
 /* =========================================
    ESTILOS EXCLUSIVOS DO PDF
@@ -89,7 +157,6 @@ td { padding: 12px 8px; text-align: center; border-bottom: 1px solid #eee; }
     border-bottom: 3px solid var(--primary-green);
     padding-bottom: 10px;
     margin-bottom: 15px;
-    /* CORREÇÃO AQUI: Padding Right Aumentado para evitar corte da data */
     padding-right: 30px; 
     width: 100%;
 }
@@ -101,13 +168,11 @@ td { padding: 12px 8px; text-align: center; border-bottom: 1px solid #eee; }
 }
 .pdf-title { font-family: 'Poppins', sans-serif; font-size: 1.4rem; font-weight: 800; margin: 0; line-height: 1; }
 .pdf-subtitle { font-size: 0.6rem; letter-spacing: 1px; margin: 0; text-transform: uppercase; color: #555; }
-
-/* CORREÇÃO AQUI: Margem de segurança para a data */
 .pdf-meta { 
     text-align: right; 
     white-space: nowrap; 
     min-width: 120px; 
-    margin-right: 15px; /* Empurra a data para a esquerda */
+    margin-right: 15px; 
 }
 .pdf-date-label { font-size: 0.6rem; font-weight: bold; color: var(--primary-green); }
 .pdf-date-val { font-size: 0.85rem; font-weight: bold; }
@@ -144,7 +209,6 @@ td { padding: 12px 8px; text-align: center; border-bottom: 1px solid #eee; }
 .pdf-heatmap-table th { text-align: left; padding: 3px; border-bottom: 1px solid #999; font-size: 0.65rem; color: #555; }
 .pdf-heatmap-table td { padding: 3px; border-bottom: 1px solid #eee; vertical-align: middle; }
 
-/* Cores Vivas (Mantidas da última atualização que você aprovou) */
 .heatmap-bar-container {
     width: 100%; height: 8px;
     background: linear-gradient(to right, #ff3d00 30%, #ffea00 30% 70%, #00e676 70%);
